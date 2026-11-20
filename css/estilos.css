@@ -1,1 +1,32 @@
- 
+/* Barra de navegación */
+.navbar {
+    background-color: #1E3C2A !important;
+}
+
+/* Marca del sitio */
+.navbar-brand {
+    color: white;
+    text-transform: uppercase;
+}
+
+/* Mantener blanca la marca al pasar el cursor */
+.navbar-brand:hover {
+    color: white;
+}
+
+/* Enlaces de navegación */
+.navbar .nav-link,
+.navbar .nav-link.active {
+    color: white;
+}
+
+/* Los enlaces se subrayan al pasar el cursor */
+.navbar .nav-link:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+/* Botón del menú responsivo */
+.navbar-toggler {
+    background-color: white;
+}
