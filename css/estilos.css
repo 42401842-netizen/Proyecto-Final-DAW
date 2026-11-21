@@ -64,3 +64,11 @@ main {
     padding: 15px;
     border-radius: 10px;
 }
+
+/* Resultados de la búsqueda */
+.obra-resultado {
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin-bottom: 15px;
+}

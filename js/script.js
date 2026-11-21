@@ -2,6 +2,15 @@
 const formulario = document.getElementById("formBusqueda");
 const campoBusqueda = document.getElementById("cadenaBusqueda");
 const errorBusqueda = document.getElementById("errorBusqueda");
+// Obtenemos la sección y el espacio donde se mostrarán los resultados.
+const respuestas = document.getElementById("seccion-respuestas");
+const resultados = document.getElementById("resultados");
+
+// Al cargar la página ocultamos la sección de resultados.
+respuestas.style.display = "none";
+
+// Variable donde construiremos el HTML de las obras encontradas.
+let salida = "";
 
 // Registramos la función buscarObras cuando se envíe el formulario.
 formulario.addEventListener("submit", buscarObras);
@@ -101,16 +110,94 @@ async function buscarObras(evento) {
     // Esperamos la resolución de la promesa.
     try {
 
+        // Esperamos la respuesta del servidor.
         const data = await myPromise;
 
-        // Por ahora mostramos la respuesta en consola.
         console.log(data);
+
+        // Mostramos la sección de resultados.
+        respuestas.style.display = "block";
+
+        // Limpiamos resultados anteriores.
+        salida = "";
+
+        // Verificamos que la API haya regresado un arreglo.
+        if (Array.isArray(data)) {
+
+            // Si el arreglo está vacío, no hubo coincidencias.
+            if (data.length == 0) {
+                throw new Error("No se encontraron resultados");
+            }
+
+            // Recorremos cada obra encontrada.
+            data.forEach(obra => {
+
+                const urlImagen =
+                    "https://nearness-cyclist-debtor.ngrok-free.dev/pf/obras" + obra.imagen;
+
+                salida += `
+                <div class="obra-resultado">
+
+                    <div class="row">
+
+                        <div class="col-12 col-md-6">
+
+                            <img src="${urlImagen}"
+                            class="img-fluid w-100"
+                            alt="${obra.titulo}">
+
+                        </div>
+
+                        <div class="col-12 col-md-6">
+
+                            <h3>${obra.titulo}</h3>
+
+                            <p>${obra.descripcion}</p>
+
+                            <p>
+                                <strong>Artista:</strong>
+                                ${obra.artista}
+                            </p>
+
+                            <p>
+                                <strong>Año:</strong>
+                                ${obra.anio}
+                            </p>
+
+                            <p>
+                                <strong>Tipo:</strong>
+                                ${obra.tipo}
+                            </p>
+
+                            <p>
+                                <strong>Movimiento:</strong>
+                                ${obra.movimiento}
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            `;
+
+            });
+
+        }
+
+        // Mostramos el HTML generado.
+        resultados.innerHTML = salida;
 
     } catch (error) {
 
-        // Mostramos un mensaje comprensible en la página.
-        errorBusqueda.textContent =
-            "No fue posible realizar la búsqueda.";
+        // Mostramos la sección aunque haya ocurrido un error.
+        respuestas.style.display = "block";
+
+        resultados.innerHTML = `
+        <div class="obra-resultado">
+            <p>No se encontró ningún resultado</p>
+        </div>
+    `;
 
         console.log(error);
     }
