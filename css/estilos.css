@@ -47,3 +47,20 @@ footer p {
     font-size: 25px;
     font-weight: bold;
 }
+
+/* Fondo general */
+body {
+    background-color: #FBF5EE;
+}
+
+/* Contenido principal */
+main {
+    margin: 10px;
+}
+
+/* Cuadro de búsqueda */
+.panel-busqueda {
+    background-color: #D6CCC0;
+    padding: 15px;
+    border-radius: 10px;
+}
