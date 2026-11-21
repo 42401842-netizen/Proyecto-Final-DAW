@@ -30,3 +30,8 @@
 .navbar-toggler {
     background-color: white;
 }
+
+/* Títulos de las tarjetas de la colección */
+.card-title {
+    font-size: 18px;
+}
