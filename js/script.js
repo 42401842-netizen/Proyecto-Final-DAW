@@ -139,10 +139,13 @@ async function buscarObras(evento) {
 
             // Recorremos cada obra encontrada.
             data.forEach(obra => {
-
+                // La API devuelve la ruta relativa de la imagen.
+                // Agregamos la dirección principal del servidor
+                // para formar la URL completa de la imagen.
                 const urlImagen =
                     "https://nearness-cyclist-debtor.ngrok-free.dev/pf/obras" + obra.imagen;
 
+                // Construimos el HTML que mostrará la información de cada obra.
                 salida += `
                 <div class="obra-resultado">
 

@@ -1,42 +1,42 @@
-/* Barra de navegación */
+/* Define el color de fondo de la barra de navegación */
 .navbar {
     background-color: #1E3C2A !important;
 }
 
-/* Marca del sitio */
+/* Configura el texto principal del navbar */
 .navbar-brand {
     color: white;
     text-transform: uppercase;
 }
 
-/* Mantener blanca la marca al pasar el cursor */
+/* Mantiene el nombre del sitio en blanco al pasar el cursor */
 .navbar-brand:hover {
     color: white;
 }
 
-/* Enlaces de navegación */
+/* Cambia a blanco los enlaces normales y el enlace activo */
 .navbar .nav-link,
 .navbar .nav-link.active {
     color: white;
 }
 
-/* Los enlaces se subrayan al pasar el cursor */
+/* Al pasar el cursor sobre los enlaces se agrega un subrayado */
 .navbar .nav-link:hover {
     color: white;
     text-decoration: underline;
 }
 
-/* Botón del menú responsivo */
+/* Da fondo blanco al botón hamburguesa en pantallas pequeñas */
 .navbar-toggler {
     background-color: white;
 }
 
-/* Títulos de las tarjetas de la colección */
+/* Tamaño de los títulos de las tarjetas */
 .card-title {
     font-size: 18px;
 }
 
-/* Pie de página */
+/* Estilos del pie de página */
 footer {
     background-color: #1E3C2A;
     padding: 25px;
@@ -48,24 +48,25 @@ footer p {
     font-weight: bold;
 }
 
-/* Fondo general */
+/* Color de fondo general de la página */
 body {
     background-color: #FBF5EE;
 }
 
-/* Contenido principal */
+/* Espacio alrededor del contenido principal */
 main {
     margin: 10px;
 }
 
-/* Cuadro de búsqueda */
+/* Apariencia del panel donde se realiza la búsqueda */
 .panel-busqueda {
     background-color: #D6CCC0;
     padding: 15px;
     border-radius: 10px;
 }
 
-/* Resultados de la búsqueda */
+/* Se usa un fondo blanco y borde gris para separar visualmente
+   cada obra de los demás resultados de la búsqueda. */
 .obra-resultado {
     background-color: white;
     border: 1px solid #ccc;
