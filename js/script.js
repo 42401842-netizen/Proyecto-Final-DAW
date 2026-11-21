@@ -126,7 +126,15 @@ async function buscarObras(evento) {
 
             // Si el arreglo está vacío, no hubo coincidencias.
             if (data.length == 0) {
-                throw new Error("No se encontraron resultados");
+
+                // Mostramos un mensaje cuando la búsqueda no tiene coincidencias.
+                resultados.innerHTML = `
+                    <div class="obra-resultado">
+                        <p>No se encontraron obras que coincidan con la búsqueda.</p>
+                    </div>
+                `;
+
+                return;
             }
 
             // Recorremos cada obra encontrada.
@@ -193,11 +201,13 @@ async function buscarObras(evento) {
         // Mostramos la sección aunque haya ocurrido un error.
         respuestas.style.display = "block";
 
+        // Mostramos un mensaje amigable si falla la comunicación
+        // o si la respuesta recibida no es válida.
         resultados.innerHTML = `
-        <div class="obra-resultado">
-            <p>No se encontró ningún resultado</p>
-        </div>
-    `;
+            <div class="obra-resultado">
+                <p>No fue posible realizar la búsqueda. Intenta nuevamente.</p>
+            </div>
+        `;
 
         console.log(error);
     }
