@@ -2,6 +2,7 @@
 const formulario = document.getElementById("formBusqueda");
 const campoBusqueda = document.getElementById("cadenaBusqueda");
 const errorBusqueda = document.getElementById("errorBusqueda");
+
 // Obtenemos la sección y el espacio donde se mostrarán los resultados.
 const respuestas = document.getElementById("seccion-respuestas");
 const resultados = document.getElementById("resultados");
@@ -55,28 +56,28 @@ async function buscarObras(evento) {
         urlBase + "?" + criterio + "=" + valorBusqueda;
 
     // Creamos una promesa que realizará la solicitud al servidor.
-    let myPromise = new Promise(function (resolve, reject) {
+    let promesaObras = new Promise(function (resolve, reject) {
 
         // Creamos el objeto XMLHttpRequest.
-        let request = new XMLHttpRequest();
+        let solicitudObras = new XMLHttpRequest();
 
         // Abrimos la conexión utilizando GET.
-        request.open("GET", peticion);
+        solicitudObras.open("GET", peticion);
 
         // Evitamos la pantalla de advertencia de ngrok.
-        request.setRequestHeader("ngrok-skip-browser-warning", true);
+        solicitudObras.setRequestHeader("ngrok-skip-browser-warning", true);
 
         // Evento que se ejecuta cuando el servidor responde.
-        request.onload = function () {
+        solicitudObras.onload = function () {
 
             // Verificamos que la respuesta sea exitosa.
-            if (request.status >= 200 && request.status < 300) {
+            if (solicitudObras.status >= 200 && solicitudObras.status < 300) {
 
                 try {
 
                     // Convertimos la respuesta a JSON
                     // y resolvemos la promesa.
-                    resolve(JSON.parse(request.responseText));
+                    resolve(JSON.parse(solicitudObras.responseText));
 
                 } catch (e) {
 
@@ -90,20 +91,20 @@ async function buscarObras(evento) {
 
                 // El servidor respondió con un error HTTP.
                 reject(
-                    new Error("Error HTTP " + request.status)
+                    new Error("Error HTTP " + solicitudObras.status)
                 );
             }
         };
 
         // Se ejecuta si existe un problema de red.
-        request.onerror = function () {
+        solicitudObras.onerror = function () {
             reject(
                 new Error("Error de red o conexión")
             );
         };
 
         // Enviamos la petición al servidor.
-        request.send();
+        solicitudObras.send();
 
     });
 
@@ -111,9 +112,9 @@ async function buscarObras(evento) {
     try {
 
         // Esperamos la respuesta del servidor.
-        const data = await myPromise;
+        const obras = await promesaObras;
 
-        console.log(data);
+        console.log(obras);
 
         // Mostramos la sección de resultados.
         respuestas.style.display = "block";
@@ -122,10 +123,10 @@ async function buscarObras(evento) {
         salida = "";
 
         // Verificamos que la API haya regresado un arreglo.
-        if (Array.isArray(data)) {
+        if (Array.isArray(obras)) {
 
             // Si el arreglo está vacío, no hubo coincidencias.
-            if (data.length == 0) {
+            if (obras.length == 0) {
 
                 // Mostramos un mensaje cuando la búsqueda no tiene coincidencias.
                 resultados.innerHTML = `
@@ -138,14 +139,11 @@ async function buscarObras(evento) {
             }
 
             // Recorremos cada obra encontrada.
-            data.forEach(obra => {
-                // La API devuelve la ruta relativa de la imagen.
-                // Agregamos la dirección principal del servidor
-                // para formar la URL completa de la imagen.
+            obras.forEach(obra => {
+
                 const urlImagen =
                     "https://nearness-cyclist-debtor.ngrok-free.dev/pf/obras" + obra.imagen;
 
-                // Construimos el HTML que mostrará la información de cada obra.
                 salida += `
                 <div class="obra-resultado">
 
